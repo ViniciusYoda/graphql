@@ -1,80 +1,50 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 
-const produtos = [
+const db = [
     {
         id: 1,
-        nome: 'Notebbok',
-        valor: 12000.00
+        nome: "Paulo",
+        email: "paulo@email.com",
+        telefone_fixo: "11 1234 1234"
     },
     {
         id: 2,
-        nome: 'TV',
-        valor: 5000.00
-    },
-    {
-        id: 3,
-        nome: 'Geladeira',
-        valor: 8000.00
+        nome: "Lucas",
+        email: "lucas@email.com",
+        telefone_fixo: "34 1234 1234"
     },
 ]
-
-const usuarios = [
-    {
-        id: 1,
-        nome: 'Paulo',
-        salario: 12234.54,
-        ativo: true,
-        idade: 23
-    },
-    {
-        id: 2,
-        nome: 'Laura',
-        salario: 3500.50,
-        ativo: false,
-        idade: 34
-    },
-    {
-        id: 3,
-        nome: 'Mario',
-        salario: 5600.70,
-        ativo: true,
-        idade: 29
-    },
-]
-
 
 const typeDefs = `#graphql
 
-    type Produto {
-        id: ID
-        nome: String
-        valor: Float
-    }
-
     type Usuario {
-        idade: Int
-        salario: Float
+        id: Int
         nome: String
-        ativo: Boolean
-        id: ID
+        email: String
+        telefone: String
     }
 
     type Query {
-        usuarios: [Usuario]
-        produtos: [Produto]
+        usuario(id: ID): Usuario
     }
 `;
 
 const resolvers = {
-    Query: {
-        usuarios() {
-            return usuarios
-        },
-        produtos() {
-            return produtos
+    Usuario: {
+        telefone(obj) {
+            return obj.telefone_fixo
         }
     },
+    Query: {
+        usuario(_obj, { id }) {
+            if (!id) {
+                return db[0];
+            }
+
+            return db.find(usuario => usuario.id === Number(id)) ?? null;
+        },
+    }
 };
 
 async function startServer() {

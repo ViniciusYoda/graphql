@@ -1,0 +1,16 @@
+query Usuarios {
+  paulo: usuario(id: 1) {
+    ...CamposUsuario
+  }
+
+  lucas: usuario(id: 2) {
+    ...CamposUsuario
+  }
+}
+
+fragment CamposUsuario on Usuario {
+  id
+  nome
+  email
+  telefone
+}
