@@ -1,0 +1,10 @@
+query GetPerfilUsuario($id: ID!) {
+  usuario(id: $id) {
+    nome
+    perfil {
+      id
+      bio
+      cidade
+    }
+  }
+}

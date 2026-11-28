@@ -2,9 +2,9 @@
   "name": "graphql",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon --watch src --ext js,gql",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@apollo/server": "^5.5.2",
-    "graphql": "^16.15.0"
+    "graphql": "^16.15.0",
+    "graphql-tools": "^10.0.10"
   }
 }

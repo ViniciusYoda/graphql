@@ -1,0 +1,18 @@
+enum StatusUsuario {
+    ATIVO
+    INATIVO
+}
+
+type Usuario {
+    id: Int
+    nome: String
+    email: String
+    telefone: String
+    status: StatusUsuario!
+    perfil: Perfil
+}
+
+type Query {
+    usuario(id: ID): Usuario
+    usuarios(status: StatusUsuario!): [Usuario!]!
+}

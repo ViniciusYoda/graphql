@@ -1,0 +1,35 @@
+# Este documento contém duas operações. No corpo JSON da requisição,
+# use "operationName": "GetUsuario" com "variables": {"id": "1"}
+# ou "operationName": "GetUsuariosPorStatus" com "variables": {"status": "ATIVO"}.
+#
+# As duas operações aceitam "incluirEmail" e "ocultarTelefone".
+# Por padrão, os dois campos de contato são retornados.
+# Para incluir apenas o email entre os campos de contato, use, por exemplo,
+# "variables": {"id": "1", "incluirEmail": true, "ocultarTelefone": true}.
+
+query GetUsuario(
+  $id: ID!
+  $incluirEmail: Boolean! = true
+  $ocultarTelefone: Boolean! = false
+) {
+  usuario(id: $id) {
+    id
+    nome
+    email @include(if: $incluirEmail)
+    telefone @skip(if: $ocultarTelefone)
+  }
+}
+
+query GetUsuariosPorStatus(
+  $status: StatusUsuario!
+  $incluirEmail: Boolean! = true
+  $ocultarTelefone: Boolean! = false
+) {
+  usuarios(status: $status) {
+    id
+    nome
+    email @include(if: $incluirEmail)
+    telefone @skip(if: $ocultarTelefone)
+    status
+  }
+}

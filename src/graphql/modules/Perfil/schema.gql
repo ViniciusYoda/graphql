@@ -1,0 +1,5 @@
+type Perfil {
+    id: ID!
+    bio: String!
+    cidade: String!
+}
